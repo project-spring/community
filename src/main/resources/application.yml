@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: community
+
+  # ?? MariaDB ????? ?? (????? ???? ??? ? ??)
+  datasource:
+    url: ${MARIADB_DB_URL}
+    username: ${MARIADB_DB_USERNAME}
+    password: ${MARIADB_DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+
+  sql:
+    init:
+      mode: always
+
+  thymeleaf3:
+    decoupled-logic: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+debug: false
+
+logging:
+  level:
+    com.community: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: mysql
+
+  # MySQL ????? ?? (mysql ????? ?????? ? ??)
+  datasource:
+    url: ${MYSQL_DB_URL}
+    username: ${MYSQL_DB_USERNAME}
+    password: ${MYSQL_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+
+  sql:
+    init:
+      mode: always
