@@ -1,6 +1,7 @@
-package com.community.domain;
+package com.community.domain.dto;
 
-import com.community.domain.dto.UserAccountDto;
+import com.community.domain.FoodReview;
+import com.community.domain.UserAccount;
 import java.time.LocalDateTime;
 
 public record FoodReviewDto(
