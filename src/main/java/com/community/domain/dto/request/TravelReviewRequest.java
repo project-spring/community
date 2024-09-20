@@ -1,7 +1,10 @@
 package com.community.domain.dto.request;
 
+import com.community.domain.dto.HashtagDto;
 import com.community.domain.dto.TravelReviewDto;
 import com.community.domain.dto.UserAccountDto;
+
+import java.util.Set;
 
 public record TravelReviewRequest(
         String title,
@@ -13,10 +16,15 @@ public record TravelReviewRequest(
     }
 
     public TravelReviewDto toDto(UserAccountDto userAccountDto) {
+        return toDto(userAccountDto, null);
+    }
+
+    public TravelReviewDto toDto(UserAccountDto userAccountDto, Set<HashtagDto> hashtagDtos) {
         return TravelReviewDto.of(
                 userAccountDto,
                 title,
-                content
+                content,
+                hashtagDtos
         );
     }
 
