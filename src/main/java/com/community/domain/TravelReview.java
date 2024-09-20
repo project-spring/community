@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Objects;
-
+import java.util.Set;
 
 
 @Entity
@@ -26,11 +28,23 @@ public class TravelReview extends AuditingFields{
 
     @Setter @Column(nullable = false, length = 10000) private String content; // 본문
 
+    @Setter private String hashtag; // 해시태그
+
 
     @Setter
     @JoinColumn(name = "userId")
     @ManyToOne(optional = false)
     private UserAccount userAccount; // 유저 정보 (ID)
+
+    @JoinTable(
+            name = "travelReview_hashtag",
+            joinColumns = @JoinColumn(name = "travelReviewId"),
+            inverseJoinColumns = @JoinColumn(name = "hashtagId")
+    )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
+    private Set<Hashtag> hashtags = new LinkedHashSet<>();
+
 
 
     protected TravelReview() {}
@@ -45,6 +59,17 @@ public class TravelReview extends AuditingFields{
         return new TravelReview(userAccount, title, content);
     }
 
+    public void addHashtag(Hashtag hashtag) {
+        this.getHashtags().add(hashtag);
+    }
+
+    public void addHashtags(Collection<Hashtag> hashtags) {
+        this.getHashtags().addAll(hashtags);
+    }
+
+    public void clearHashtags() {
+        this.getHashtags().clear();
+    }
 
 
     @Override

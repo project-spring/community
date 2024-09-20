@@ -5,6 +5,8 @@ import com.community.domain.TravelReview;
 import com.community.domain.UserAccount;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public record TravelReviewDto(
@@ -12,20 +14,21 @@ public record TravelReviewDto(
         UserAccountDto userAccountDto,
         String title,
         String content,
+        Set<HashtagDto> hashtagDtos,
         LocalDateTime createdAt,
         String createdBy,
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
 
-    public static TravelReviewDto of(UserAccountDto userAccountDto, String title, String content) {
-        return new TravelReviewDto(null, userAccountDto, title, content,
+    public static TravelReviewDto of(UserAccountDto userAccountDto, String title, String content, Set<HashtagDto> hashtagDtos) {
+        return new TravelReviewDto(null, userAccountDto, title, content,  hashtagDtos,
                 null, null, null, null);
     }
 
-    public static TravelReviewDto of(Long id, UserAccountDto userAccountDto, String title, String content,
+    public static TravelReviewDto of(Long id, UserAccountDto userAccountDto, String title, String content, Set<HashtagDto> hashtagDtos,
                                      LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
-        return new TravelReviewDto(id, userAccountDto, title, content, createdAt, createdBy, modifiedAt, modifiedBy);
+        return new TravelReviewDto(id, userAccountDto, title, content, hashtagDtos, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
     public static TravelReviewDto from(TravelReview entity) {
@@ -34,6 +37,9 @@ public record TravelReviewDto(
                 UserAccountDto.from(entity.getUserAccount()),
                 entity.getTitle(),
                 entity.getContent(),
+                entity.getHashtags().stream()
+                        .map(HashtagDto::from)
+                        .collect(Collectors.toUnmodifiableSet()),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
