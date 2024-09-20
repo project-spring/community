@@ -55,8 +55,7 @@ public class TravelReviewService {
     public void deleteTravelReview(long travelReviewId, String userId) {
         TravelReview travelReview = travelReviewRepository.getReferenceById(travelReviewId);
 
-        //travelReviewRepository.deleteByIdAndUserAccount_UserId(travelReviewId, userId);
-        travelReviewRepository.flush();
+        travelReviewRepository.deleteByIdAndUserAccount_UserId(travelReviewId, userId);
 
     }
 
