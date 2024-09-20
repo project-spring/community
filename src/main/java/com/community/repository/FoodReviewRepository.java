@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FoodReviewRepository extends JpaRepository<FoodReview, Long> {
 
+    void deleteByIdAndUserAccount_UserId(Long foodReviewId, String userId);
 }

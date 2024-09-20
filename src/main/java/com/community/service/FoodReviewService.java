@@ -52,8 +52,6 @@ public class FoodReviewService {
                 // 제목과 내용이 비어 있지 않으면 해당 값으로 수정
                 if (dto.title() != null) { foodReview.setTitle(dto.title()); }
                 if (dto.content() != null) { foodReview.setContent(dto.content()); }
-
-                foodReviewRepository.flush(); // 변경 사항 반영
             }
         } catch (EntityNotFoundException e) {
             log.warn("리뷰 업데이트 실패. 리뷰를 수정하는데 필요한 정보를 찾을 수 없습니다 - {}", e.getLocalizedMessage());
@@ -63,9 +61,8 @@ public class FoodReviewService {
     // 게시글 삭제
     public void deleteFoodReview(Long foodReviewId, String userId) {
         FoodReview foodReview = foodReviewRepository.getReferenceById(foodReviewId); // 삭제할 게시글 조회
+        foodReviewRepository.deleteByIdAndUserAccount_UserId(foodReviewId, userId); // 게시글 삭제 (작성자와 일치하는지 확인)
 
-      //  foodReviewRepository.deleteByIdAndUserAccount_UserId(foodReviewId, userId); // 게시글 삭제 (작성자와 일치하는지 확인)
-        foodReviewRepository.flush(); // 삭제 반영
     }
 
     // 총 게시글 수 조회
