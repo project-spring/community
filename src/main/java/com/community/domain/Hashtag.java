@@ -30,10 +30,6 @@ public class Hashtag extends AuditingFields {
     @ToString.Exclude
     private Set<Article> articles = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "hashtags")
-    @ToString.Exclude
-    private Set<TravelReview> travelReviews = new LinkedHashSet<>();
-
     protected Hashtag() {}
 
     private Hashtag(String hashtagName) {
