@@ -1,9 +1,7 @@
 package com.community.config;
 
-import com.community.domain.dto.UserAccountDto;
 import com.community.domain.dto.security.BoardPrincipal;
 import com.community.domain.dto.security.KakaoOAuth2Response;
-import com.community.repository.UserAccountRepository;
 import com.community.service.UserAccountService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +20,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.UUID;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -54,6 +50,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService)
                         )
+                        .defaultSuccessUrl("/", true)
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
                 .build();
