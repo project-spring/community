@@ -22,7 +22,7 @@
         <section class="col-md-3 col-lg-4 order-md-last">
             <aside>
                 <p><span th:text="${notice.writer}">작성자</span></p>
-                <p><time th:text="${notice.createdAt}" datetime="2022-01-01T00:00:00">작성일</time></p>
+                <p><time th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일</time></p>
             </aside>
         </section>
 
