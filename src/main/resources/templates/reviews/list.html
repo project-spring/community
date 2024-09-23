@@ -33,7 +33,7 @@
             <th scope="row" th:text="${review.id}">1</th>
             <td th:text="${review.title}">리뷰 제목</td>
             <td th:text="${review.writer}">작성자</td>
-            <td th:text="${review.createdAt}">2024-01-01</td>
+            <td th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01</td>
             <td><a th:href="@{/reviews/{id}(id=${review.id})}" class="btn btn-primary">보기</a></td>
         </tr>
         </tbody>

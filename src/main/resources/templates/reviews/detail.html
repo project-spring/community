@@ -22,8 +22,7 @@
         <section class="col-md-3 col-lg-4 order-md-last">
             <aside>
                 <p><span th:text="${review.writer}">작성자</span></p>
-                <p><time th:text="${review.createdAt}" datetime="2022-01-01T00:00:00">작성일</time></p>
-            </aside>
+                <time th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm:ss')}" >작성일</time>            </aside>
         </section>
 
         <article class="col-md-9 col-lg-8">
