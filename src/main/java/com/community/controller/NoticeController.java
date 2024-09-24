@@ -3,7 +3,9 @@ package com.community.controller;
 import com.community.domain.Notice;
 import com.community.domain.dto.security.BoardPrincipal;
 import com.community.service.NoticeService;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +14,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/notices")
+@RequiredArgsConstructor
 public class NoticeController {
 
     private final NoticeService noticeService;
-
-    public NoticeController(NoticeService noticeService) {
-        this.noticeService = noticeService;
-    }
 
     // 공지사항 목록 조회
     @GetMapping
