@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Uno Kim">
-    <title>공지사항 목록</title>
+    <title>여행정보</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
@@ -15,7 +15,7 @@
 
 <main class="container">
     <header class="py-5 text-center">
-        <h1>공지사항 목록</h1>
+        <h1>여행정보 게시판</h1>
     </header>
 
     <table class="table">
@@ -31,7 +31,7 @@
         <tbody>
         <tr th:each="notice : ${notices}">
             <th scope="row" th:text="${notice.id}">1</th>
-            <td th:text="${notice.title}">공지사항 제목</td>
+            <td th:text="${notice.title}">여행정보 제목</td>
             <td th:text="${notice.writer}">작성자</td>
             <td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01</td>
             <td><a th:href="@{/notices/{id}(id=${notice.id})}" class="btn btn-primary">보기</a></td>
@@ -39,7 +39,7 @@
         </tbody>
     </table>
 
-    <a href="/notices/new" class="btn btn-success">새 공지 작성</a>
+    <a href="/notices/new" class="btn btn-success">새 게시글 작성</a>
 </main>
 
 <footer th:replace="~{footer :: footer}"></footer>

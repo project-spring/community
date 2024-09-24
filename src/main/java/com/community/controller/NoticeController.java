@@ -1,7 +1,9 @@
 package com.community.controller;
 
 import com.community.domain.Notice;
+import com.community.domain.dto.security.BoardPrincipal;
 import com.community.service.NoticeService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,40 +38,47 @@ public class NoticeController {
 
     // 공지사항 작성 폼
     @GetMapping("/new")
-    public String newNoticeForm(Model model) {
+    public String newNoticeForm(@AuthenticationPrincipal BoardPrincipal boardPrincipal, Model model) {
         model.addAttribute("notice", new Notice());
+        model.addAttribute("username", boardPrincipal.nickname());
         return "notices/form";
     }
 
     // 공지사항 생성 처리
     @PostMapping
-    public String createNotice(@RequestParam String title,
-                               @RequestParam String content,
-                               @RequestParam String writer) {
+    public String createNotice(@RequestParam String title, @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+        @RequestParam String content,
+        @RequestParam String writer) {
         Notice notice = Notice.of(title, content, writer);
+
+        String username = boardPrincipal.nickname();
+
         noticeService.createNotice(notice);
         return "redirect:/notices";
     }
 
     // 공지사항 수정 폼
     @GetMapping("/{id}/edit")
-    public String editNoticeForm(@PathVariable Long id, Model model) {
+    public String editNoticeForm(@PathVariable Long id, @AuthenticationPrincipal BoardPrincipal boardPrincipal, Model model) {
         Notice notice = noticeService.getNotice(id);
         model.addAttribute("notice", notice);
+        model.addAttribute("username", boardPrincipal.nickname());
         return "notices/form";
     }
 
     // 공지사항 수정 처리
     @PostMapping("/{id}")
-    public String updateNotice(@PathVariable Long id,
-                               @RequestParam String title,
-                               @RequestParam String content,
-                               @RequestParam String writer) {
+    public String updateNotice(@PathVariable Long id, @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+        @RequestParam String title,
+        @RequestParam String content,
+        @RequestParam String writer) {
+        String username = boardPrincipal.nickname();
+
         Notice notice = noticeService.getNotice(id);
         if (notice != null) {
             notice.setTitle(title);
             notice.setContent(content);
-            notice.setWriter(writer);
+            notice.setWriter(username);
             noticeService.updateNotice(notice);
         }
         return "redirect:/notices";
