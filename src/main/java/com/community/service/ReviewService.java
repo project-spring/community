@@ -2,18 +2,16 @@ package com.community.service;
 
 import com.community.domain.Review;
 import com.community.repository.ReviewRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();

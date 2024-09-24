@@ -2,6 +2,7 @@ package com.community.controller;
 
 import com.community.domain.Review;
 import com.community.service.ReviewService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/reviews")
+@RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
-
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
 
     // 리뷰 목록 조회
     @GetMapping
